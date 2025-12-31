@@ -1,11 +1,10 @@
-# CodeCrafters Shell Automation Script
+# PyShell Automation Script
 param([string]$pythonCode)
-$repoPath = "C:\Users\Prajeesh\codecrafters-shell-python"
+$repoPath = "C:\Users\Prajeesh\Shell Py"
 Set-Content -Path "$repoPath\app\main.py" -Value $pythonCode -Encoding UTF8
 cd $repoPath
 git add app/main.py
-git commit -m "automated stage update"
+git commit -m "automated update"
 git push origin master
-Write-Host "✓ Code pushed to CodeCrafters"
-Write-Host "✓ Tests are running... check CodeCrafters for results"
-Write-Host "✓ Tell me when you've reviewed the logs"
+Write-Host "✓ Code pushed successfully"
+Write-Host "✓ Update complete"
