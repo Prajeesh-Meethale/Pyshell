@@ -21,7 +21,7 @@ PyShell interprets shell commands, runs external programs, and provides builtin 
 | Tab completion | ✅ | ✅ |
 | Command history | ✅ | ✅ |
 
-**Completeness:** 17/20 core interactive shell features (85%) | See [FEATURE_COMPARISON.md](FEATURE_COMPARISON.md) for full details
+See [FEATURE_COMPARISON.md](FEATURE_COMPARISON.md) for full details
 
 ## Getting Started
 
