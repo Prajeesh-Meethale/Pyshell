@@ -1,8 +1,8 @@
 # PyShell
 
-A high-performance, POSIX-compliant shell implementation in Python.
+An interactive shell implementation in Python.
 
-PyShell is a production-ready shell that interprets shell commands, runs external programs, and provides builtin commands like cd, pwd, echo, and more. It features conditional execution logic, exit code tracking, and is packaged as a standalone Windows executable.
+PyShell interprets shell commands, runs external programs, and provides builtin commands like cd, pwd, echo, and more. It features conditional execution logic, exit code tracking, and is packaged as a standalone Windows executable.
 
 **See [FEATURE_COMPARISON.md](FEATURE_COMPARISON.md) for a detailed feature comparison with bash/sh.**
 
@@ -13,17 +13,15 @@ PyShell is a production-ready shell that interprets shell commands, runs externa
 | Command execution | ✅ | ✅ |
 | Pipes (`\|`) | ✅ | ✅ |
 | Redirection (`>`, `>>`, `2>`) | ✅ | ✅ |
-| Background (`&`) | ✅ | ❌ |
+| Background (`&`) | ✅ | ✅ |
 | Built-ins (cd, pwd, echo) | ✅ | ✅ |
-| Signals (Ctrl+C) | ✅ | ⚠️* |
+| Signals (Ctrl+C) | ✅ | ✅ |
 | Conditional (`if-then`, `&&`, `\|\|`) | ✅ | ✅ |
 | Exit code tracking | ✅ | ✅ |
 | Tab completion | ✅ | ✅ |
 | Command history | ✅ | ✅ |
 
-*Signal handling works on Unix/Linux, limited on Windows
-
-**Completeness:** 15/20 core features (75%) | See [FEATURE_COMPARISON.md](FEATURE_COMPARISON.md) for full details
+**Completeness:** 17/20 core interactive shell features (85%) | See [FEATURE_COMPARISON.md](FEATURE_COMPARISON.md) for full details
 
 ## Getting Started
 
@@ -37,7 +35,7 @@ The entry point for your `shell` implementation is in `app/main.py`.
 
 ## Conditional Execution Flow
 
-PyShell supports advanced conditional scripting logic for professional shell scripting:
+PyShell supports explicit exit-code-based conditional execution, evaluated in-process:
 
 ### Exit Code Tracking
 
@@ -126,6 +124,8 @@ This tests:
 - External program execution
 - I/O redirection
 - Piping between commands
+- **Background processes** (`&`) - Run commands in background
+- **Signal handling** (Ctrl+C) - Gracefully terminate child processes
 - Environment variable handling
 - Tab completion
 - Command history
@@ -136,9 +136,8 @@ This tests:
 
 Performance metrics measured on Windows 11 (Python 3.14.2):
 
-### Builtin Commands (vs Native Shells)
+### Builtin Commands
 - `echo "test"`: **0.003ms** (PyShell) vs **64.5ms** (CMD/PowerShell)
-- **PyShell builtins are ~21,000x faster** than native shells for simple commands
 - Builtin commands run in-process with minimal overhead
 
 ### Command Parsing
@@ -154,10 +153,10 @@ Performance metrics measured on Windows 11 (Python 3.14.2):
 ### Performance Comparison Summary
 | Operation | PyShell | Bash/CMD | Notes |
 |-----------|---------|----------|-------|
-| Builtin commands | 0.003ms | 64-100ms | PyShell significantly faster |
+| Builtin commands | 0.003ms | 64-100ms | In-process execution |
 | External commands | ~65ms | ~65ms | Comparable overhead |
 | Command parsing | 0.014ms | <0.1ms | Both very fast |
 
-**Key Insight:** PyShell excels at builtin commands (echo, pwd, cd, type, history) which run in-process, making it ideal for interactive use and scripts that heavily use builtins.
+**Key Insight:** PyShell's builtin commands (echo, pwd, cd, type, history) run in-process, making them fast for interactive use and scripts that heavily use builtins.
 
 *Note: Actual performance may vary based on system load, Python version, and hardware specifications. Run `python test_shell_audit.py` for current benchmarks.*
