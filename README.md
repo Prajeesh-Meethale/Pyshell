@@ -160,3 +160,4 @@ Performance metrics measured on Windows 11 (Python 3.14.2):
 **Key Insight:** PyShell's builtin commands (echo, pwd, cd, type, history) run in-process, making them fast for interactive use and scripts that heavily use builtins.
 
 *Note: Actual performance may vary based on system load, Python version, and hardware specifications. Run `python test_shell_audit.py` for current benchmarks.*
+
